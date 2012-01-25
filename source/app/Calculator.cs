@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
+using System.Security;
+using System.Security.Principal;
+using System.Threading;
 
 namespace app
 {
@@ -35,7 +38,12 @@ namespace app
 
     public void shut_down()
     {
-      throw new NotImplementedException();
+        IPrincipal principal;
+        principal = Thread.CurrentPrincipal;
+        if(!principal.IsInRole(principal.ToString()))
+            throw new SecurityException();
+
+      
     }
 
     void ensure_all_are_positive(params int[] numbers)
