@@ -2,5 +2,6 @@
 {
   public interface IProvideDetailsToCommands
   {
+    InputModel map<InputModel>();
   }
 }
