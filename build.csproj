@@ -81,6 +81,7 @@
     <None Include="source\config\our_custom_config.txt.erb" />
     <None Include="source\config\web.config.erb" />
     <None Include="start_new_exercise" />
+    <None Include="tools\ahk\visual_studio.ahk" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
