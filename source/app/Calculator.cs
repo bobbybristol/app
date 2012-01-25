@@ -24,7 +24,7 @@ namespace app
 
     public int add(int first, int second)
     {
-      ensure_all_are_positive(first,second);
+      ensure_all_are_positive(first, second);
 
       using (connection)
       using (var command = connection.CreateCommand())
@@ -38,12 +38,8 @@ namespace app
 
     public void shut_down()
     {
-        IPrincipal principal;
-        principal = Thread.CurrentPrincipal;
-        if(!principal.IsInRole(principal.ToString()))
-            throw new SecurityException();
-
-      
+      if (Thread.CurrentPrincipal.IsInRole("sdfsdf")) return;
+      throw new SecurityException();
     }
 
     void ensure_all_are_positive(params int[] numbers)

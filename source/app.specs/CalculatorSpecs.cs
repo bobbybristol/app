@@ -30,23 +30,24 @@ namespace app.specs
       static IDbConnection connection;
     }
 
-    public class when_shutting_off_the_calculator : concern
+    public class when_shutting_off_the_calculator_and_they_are_in_the_correct_security_group : concern
     {
       public class and_they_are_in_the_correct_security_group
       {
         Establish c = () =>
         {
           principal = fake.an<IPrincipal>();
-          principal.setup(x => x.IsInRole(Arg<string>.Is.NotNull)).Return(true);
-
+          principal.setup(x => x.IsInRole(Arg<string>.Is.Anything)).Return(true);
           spec.change(() => Thread.CurrentPrincipal).to(principal);
         };
+
 
         Because b = () =>
           sut.shut_down();
 
         It should_not_cause_any_errors = () =>
         {
+
         };
 
         static IPrincipal principal;
