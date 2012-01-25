@@ -30,9 +30,9 @@ namespace app.specs
       static IDbConnection connection;
     }
 
-    public class when_shutting_off_the_calculator_and_they_are_in_the_correct_security_group : concern
+    public class when_shutting_off_the_calculator : concern
     {
-      public class and_they_are_in_the_correct_security_group
+      public class and_they_are_in_the_correct_security_group:when_shutting_off_the_calculator
       {
         Establish c = () =>
         {
@@ -45,14 +45,14 @@ namespace app.specs
         Because b = () =>
           sut.shut_down();
 
-        It should_not_cause_any_errors = () =>
+        It should_not_throw_a_security_exception = () =>
         {
 
         };
 
         static IPrincipal principal;
       }
-      public class and_the_are_not_in_the_correct_security_group
+      public class and_the_are_not_in_the_correct_security_group:when_shutting_off_the_calculator
       {
         Establish c = () =>
         {
