@@ -20,12 +20,14 @@ namespace app.specs
       Establish c = () =>
       {
         request = fake.an<IProvideDetailsToCommands>();
+          request.received( x => x.request_type );
       };
 
       Because b = () =>
         result = sut.can_process(request);
 
-      It first_observation = () =>
+        It should_check_the_request_type = () =>
+                                           request.request_type
 
       static IProvideDetailsToCommands request;
       static bool result;
