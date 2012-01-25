@@ -13,9 +13,13 @@ namespace app
 
     public int add(int first, int second)
     {
-      connection.Open();
-      connection.CreateCommand().ExecuteNonQuery();
-        
+      using (connection)
+      using (var command = connection.CreateCommand())
+      {
+        connection.Open();
+        command.ExecuteNonQuery();
+      }
+
       return first + second;
     }
   }

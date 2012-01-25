@@ -1,20 +1,19 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Machine.Specifications;
-using developwithpassion.specifications.rhinomocks;
 using developwithpassion.specifications.extensions;
+using developwithpassion.specifications.rhinomocks;
 
 namespace app.specs
 {
   [Subject(typeof(Calculator))]
   public class CalculatorSpecs
   {
-
     public abstract class concern : Observes<Calculator>
     {
-      
     }
 
-    public class when_created :concern
+    public class when_created : concern
     {
       Establish c = () =>
       {
@@ -27,36 +26,49 @@ namespace app.specs
       static IDbConnection connection;
     }
 
-    public class when_adding_two_positive_numbers :concern
+    public class when_adding : concern
     {
-      //Arrange
-      Establish c = () =>
+      public class two_positive_numbers
       {
-        connection = depends.on<IDbConnection>();
-        command = fake.an<IDbCommand>();
+        Establish c = () =>
+        {
+          connection = depends.on<IDbConnection>();
+          command = fake.an<IDbCommand>();
 
-        connection.setup(x => x.CreateCommand()).Return(command);
-      };
+          connection.setup(x => x.CreateCommand()).Return(command);
+        };
 
-      //Act
-      Because b = () =>
-        result = sut.add(2, 3);
+        Because b = () =>
+          result = sut.add(2, 3);
 
-      //Assert
-      It should_return_the_sum = () =>
-        result.ShouldEqual(5);
+        It should_return_the_sum = () =>
+          result.ShouldEqual(5);
 
-      It should_open_a_connection_to_the_database = () =>
-        connection.received(x => x.Open());
+        It should_open_a_connection_to_the_database = () =>
+          connection.received(x => x.Open());
 
-      It should_run_a_command = () =>
-        command.received(x => x.ExecuteNonQuery());
-        
-        
+        It should_run_a_command = () =>
+          command.received(x => x.ExecuteNonQuery());
 
-      static int result;
-      static IDbConnection connection;
-      static IDbCommand command;
+        It should_dispose_its_resources = () =>
+        {
+          connection.received(x => x.Dispose());
+          command.received(x => x.Dispose());
+        };
+
+        static int result;
+        static IDbConnection connection;
+        static IDbCommand command;
+      }
+
+      public class a_negative_number_to_a_positive
+      {
+        Because b = () =>
+          spec.catch_exception(() => sut.add(2, -3));
+
+        It should_throw_an_argument_exception = () =>
+          spec.exception_thrown.ShouldBeAn<ArgumentException>();
+      }
     }
   }
 }
