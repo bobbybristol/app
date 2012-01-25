@@ -47,9 +47,17 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Input.aspx.cs">
+      <DependentUpon>Input.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Input.aspx.designer.cs">
+      <DependentUpon>Input.aspx</DependentUpon>
+    </Compile>
     <Compile Include="views\DepartmentBrowser.aspx.cs">
       <DependentUpon>DepartmentBrowser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -64,6 +72,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Input.aspx" />
     <Content Include="views\AccountMenu.aspx" />
     <Content Include="views\BeginCheckout.aspx" />
     <Content Include="views\ChangeCustLogin.aspx" />
