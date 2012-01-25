@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace app.web.core
 {
@@ -14,13 +15,7 @@ namespace app.web.core
 
     public IProcessOneRequest get_the_command_that_can_process(IProvideDetailsToCommands request)
     {
-        foreach ( var command in commands )
-        {
-            if (command.can_process(request))
-                return command;
-        }
-
-        throw new ArgumentException("I don't have a command that can process that request.");
+        return commands.FirstOrDefault(c => c.can_process( request ));
     }
   }
 }
