@@ -3,15 +3,17 @@
   public class RequestCommand : IProcessOneRequest
   {
     RequestCriteria request_criteria;
+    IImplementAFeature implement_Feature;
 
-    public RequestCommand(RequestCriteria request_criteria)
+    public RequestCommand(RequestCriteria request_criteria, IImplementAFeature implementFeature)
     {
-      this.request_criteria = request_criteria;
+        this.request_criteria = request_criteria;
+        this.implement_Feature = implementFeature;
     }
 
-    public void process(IProvideDetailsToCommands request)
+      public void process(IProvideDetailsToCommands request)
     {
-      throw new System.NotImplementedException();
+      implement_Feature.process(request);
     }
 
     public bool can_process(IProvideDetailsToCommands request)
