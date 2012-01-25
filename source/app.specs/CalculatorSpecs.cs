@@ -26,12 +26,16 @@ namespace app.specs
 
       static IDbConnection connection;
     }
+
     public class when_adding_two_positive_numbers :concern
     {
       //Arrange
       Establish c = () =>
       {
         connection = depends.on<IDbConnection>();
+        command = fake.an<IDbCommand>();
+
+        connection.setup(x => x.CreateCommand()).Return(command);
       };
 
       //Act
@@ -44,10 +48,15 @@ namespace app.specs
 
       It should_open_a_connection_to_the_database = () =>
         connection.received(x => x.Open());
+
+      It should_run_a_command = () =>
+        command.received(x => x.ExecuteNonQuery());
+        
         
 
       static int result;
       static IDbConnection connection;
+      static IDbCommand command;
     }
   }
 }
