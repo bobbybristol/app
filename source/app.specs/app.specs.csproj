@@ -119,7 +119,9 @@
     <Compile Include="FrontControllerSpecs.cs" />
     <Compile Include="MessageGeneratorSpecs.cs" />
     <Compile Include="RequestCommandSpecs.cs" />
+    <Compile Include="StubSpecs.cs" />
     <Compile Include="utility\ObjectFactory.cs" />
+    <Compile Include="ViewTheDepartmentsInADepartmentSpecs.cs" />
     <Compile Include="ViewTheMainDepartmentsInTheStoreSpecs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace app.web.core
+﻿namespace app.web.core
 {
-    public interface IDisplayInformation
-    {
-        void show();
-    }
+  public interface IDisplayInformation
+  {
+    void display<ReportModel>(ReportModel model);
+  }
 }
