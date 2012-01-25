@@ -1,8 +1,14 @@
-﻿namespace app
+﻿using System.Data;
+
+namespace app
 {
   public class Calculator
   {
-    public static int add(int first, int second)
+    public Calculator(IDbConnection connection)
+    {
+    }
+
+    public int add(int first, int second)
     {
       return first + second;
     }

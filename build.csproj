@@ -72,6 +72,9 @@
     <None Include="build\support\003_tasks\windows\git.rb.erb" />
     <None Include="build\support\003_tasks\windows\growl.rb" />
     <None Include="build\support\003_tasks\windows\machine_specs.rb" />
+    <None Include="change" />
+    <None Include="code_kata" />
+    <None Include="continuous_testing" />
     <None Include="docs\conventions.markdown" />
     <None Include="fetch_latest" />
     <None Include="push" />
