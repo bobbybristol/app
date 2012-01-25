@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 
 namespace app
 {
@@ -13,6 +14,10 @@ namespace app
 
     public int add(int first, int second)
     {
+        if (first < 0 || second < 0)
+            throw new System.ArgumentException();
+
+
       using (connection)
       using (var command = connection.CreateCommand())
       {
