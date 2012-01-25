@@ -14,5 +14,11 @@ namespace app.web.application.catalogbrowsing.stubs
       {
           return Enumerable.Range(1, 100).Select(x => new DepartmentItem { name = x.ToString("Sub Department 0") });
       }
+
+      public IEnumerable<ProductItem> get_the_products_in_a_department(DepartmentItem parent)
+      {
+          return Enumerable.Range(1, 100).Select(x => new ProductItem { name = x.ToString("Product 0") });
+      
+      }
   }
 }
