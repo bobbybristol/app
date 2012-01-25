@@ -81,6 +81,9 @@
     <None Include="source\config\our_custom_config.txt.erb" />
     <None Include="source\config\web.config.erb" />
     <None Include="start_new_exercise" />
+    <None Include="tools\ahk\general.ahk" />
+    <None Include="tools\ahk\resharper.ahk" />
+    <None Include="tools\ahk\spaces_as_underscores.ahk" />
     <None Include="tools\ahk\visual_studio.ahk" />
   </ItemGroup>
   <ItemGroup>
