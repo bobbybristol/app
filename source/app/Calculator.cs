@@ -1,22 +1,27 @@
 ﻿using System;
 using System.Data;
+using System.Linq;
 
 namespace app
 {
-  public class Calculator
+  public interface ICalculate
+  {
+    int add(int first, int second);
+    void shut_down();
+  }
+
+  public class Calculator : ICalculate
   {
     IDbConnection connection;
 
-    public Calculator(IDbConnection connection)
+    public Calculator(int number2, IDbConnection connection, int number1)
     {
       this.connection = connection;
     }
 
     public int add(int first, int second)
     {
-        if (first < 0 || second < 0)
-            throw new System.ArgumentException();
-
+      ensure_all_are_positive(first,second);
 
       using (connection)
       using (var command = connection.CreateCommand())
@@ -26,6 +31,18 @@ namespace app
       }
 
       return first + second;
+    }
+
+    public void shut_down()
+    {
+      throw new NotImplementedException();
+    }
+
+    void ensure_all_are_positive(params int[] numbers)
+    {
+      if (numbers.All(x => x > 0)) return;
+
+      throw new ArgumentException("I can't deal with negatives");
     }
   }
 }

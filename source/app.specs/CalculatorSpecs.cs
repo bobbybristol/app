@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Data;
+using System.Security;
+using System.Security.Principal;
+using System.Threading;
 using Machine.Specifications;
+using Rhino.Mocks;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.rhinomocks;
 
@@ -9,7 +13,7 @@ namespace app.specs
   [Subject(typeof(Calculator))]
   public class CalculatorSpecs
   {
-    public abstract class concern : Observes<Calculator>
+    public abstract class concern : Observes<ICalculate, Calculator>
     {
     }
 
@@ -24,6 +28,48 @@ namespace app.specs
         connection.never_received(x => x.Open());
 
       static IDbConnection connection;
+    }
+
+    public class when_shutting_off_the_calculator : concern
+    {
+      public class and_they_are_in_the_correct_security_group
+      {
+        Establish c = () =>
+        {
+          principal = fake.an<IPrincipal>();
+          principal.setup(x => x.IsInRole(Arg<string>.Is.NotNull)).Return(true);
+
+          spec.change(() => Thread.CurrentPrincipal).to(principal);
+        };
+
+        Because b = () =>
+          sut.shut_down();
+
+        It should_not_cause_any_errors = () =>
+        {
+        };
+
+        static IPrincipal principal;
+      }
+      public class and_the_are_not_in_the_correct_security_group
+      {
+        Establish c = () =>
+        {
+          principal = fake.an<IPrincipal>();
+          principal.setup(x => x.IsInRole(Arg<string>.Is.NotNull)).Return(false);
+
+          spec.change(() => Thread.CurrentPrincipal).to(principal);
+        };
+
+        Because b = () =>
+          spec.catch_exception(() => sut.shut_down());
+
+        It should_throw_a_security_exception = () =>
+          spec.exception_thrown.ShouldBeAn<SecurityException>();
+
+
+        static IPrincipal principal;
+      }
     }
 
     public class when_adding : concern
