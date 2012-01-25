@@ -14,6 +14,8 @@ namespace app
     public int add(int first, int second)
     {
       connection.Open();
+      connection.CreateCommand().ExecuteNonQuery();
+        
       return first + second;
     }
   }
