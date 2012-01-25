@@ -30,8 +30,8 @@ namespace app.specs
       Because b = () =>
         sut.process(request);
 
-      It should_delegate_the_processing_to_the_command_that_can_process_the_request = () =>        
-        command_that_can_process.received(x => x.process(request))
+      It should_delegate_the_processing_to_the_command_that_can_process_the_request = () =>
+        command_that_can_process.received(x => x.process(request));
 
       static IProcessOneRequest command_that_can_process;
       static IProvideDetailsToCommands request;
