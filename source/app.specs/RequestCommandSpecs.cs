@@ -17,8 +17,18 @@ namespace app.specs
    
     public class when_determining_if_it_can_process_a_request : concern
     {
-      It first_observation = () =>        
-        
+      Establish c = () =>
+      {
+        request = fake.an<IProvideDetailsToCommands>();
+      };
+
+      Because b = () =>
+        result = sut.can_process(request);
+
+      It first_observation = () =>
+
+      static IProvideDetailsToCommands request;
+      static bool result;
     }
   }
 }
